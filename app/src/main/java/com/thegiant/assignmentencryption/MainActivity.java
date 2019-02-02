@@ -11,8 +11,11 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private EditText editText;
-    private Button button;
+    private Button button,button2;
     private TextView textView;
+
+    private int i,k=3,n;
+    private String string,e;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,21 +24,42 @@ public class MainActivity extends AppCompatActivity {
 
         editText=findViewById(R.id.et_text);
         button=findViewById(R.id.btn_encrypt);
+        button2=findViewById(R.id.btn_decrypt);
         textView=findViewById(R.id.tv_output);
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                String string=editText.getText().toString();
+                string=editText.getText().toString();
+                e="";
 
-                StringBuffer stringBuffer=new StringBuffer(string);
-                stringBuffer.reverse();
+                for (i=0;i<string.length();i++){
+                    n=string.charAt(i);
+                    n=n-97;
+                    n=((n+k)%26)+97;
+                    char c= (char) n;
+                    e=e+c;
+                }
+                textView.setText(e);
 
+            }
+        });
 
+        button2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                string=textView.getText().toString();
+                e="";
 
-                textView.setText(stringBuffer.toString());
-
+                for (i=0;i<string.length();i++){
+                    n=string.charAt(i);
+                    n=n-k;
+                   // n=((n+k)%26)+97;
+                    char c= (char) n;
+                    e=e+c;
+                }
+                textView.setText(e);
             }
         });
     }
